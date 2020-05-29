@@ -23,7 +23,7 @@ cep_input.addEventListener('change', () => {
             localidade_input.value = dadoObj.localidade
             uf_input.value = dadoObj.uf
         })
-        .catch(erro) => {
-            console.log(erro)
-        }
+        .catch((erro) => {
+            console.log(erro);
+        })
 })
