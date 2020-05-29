@@ -11,11 +11,14 @@ const profissionaisMelhores = profissionais.map(
     }
 );
 
+//que tambem poderia ser escrito como:
 
-
-const profissionaisMelhores = profissionais.map(profissional => {
-    return profissional + "a";
-})
+const profissionaisMelhores = profissionais.map(
+    (item) => { // aqui item está no lugar de item do array, que é o primeiro parametro do map, e desempenha o papel de funcao de callback (conferir se procede)
+        const novaProfissional = item + "a"
+        return novaProfissional;
+    }
+);
 
 
 // 2) Retornar frutas com somente a primeira letra maiúscula
@@ -79,7 +82,13 @@ const soma = num.reduce(
 )
 
 // 1) Dado uma array de números, retornar a soma de todos eles
-const soma = num.reduce((acc, curr) => acc + curr);
+// input: array
+// output: um único valor
+const num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const soma = num.reduce((acc, curr) => acc + curr); // essa merda recebe como parametro: acumulado, item, indice e array. por isso a gente tá chamando de acc (accumulated) e curr(current item)
+
+
+// o processamento acontece em pares
 
 
 // 2) Retornar o lucro de uma empresa
@@ -92,22 +101,41 @@ const transacoes = [
 
 const lucro = transacoes.reduce((acc, curr) => curr.tipo === "entrada" ? acc + curr.valor : acc - curr.valor, 0)
 
+//OU
+
 const lucro = transacoes.reduce(
-    (acumulado, item, indice, array) => {
-        const ehLucro = item.tipo === "entrada"
-    }
-)
+    (acumulado, item) => {
+        if (item.tipo === "entrada") {
+            return acumulado + item.valor;
+        } else {
+            return acumulado - item.valor;
+        }
+    }, 0
+);
+
+// o reduce recebe como primeiro parametro a funcao de callback. o segundo parâmetro pode ser um valor, e a gente costuma usar o 0 como VALOR ACUMULADO INICIAL. senão ele trava o acumulado no segundo loop e não funciona mais.
+
+
 
 // sort(): organiza itens da array de acordo com uma verificação
 
 // 1) Organizar números de forma decrescente
 
 // 2) Organizar pessoas por ordem alfabética
+const pessoasAlfabetico = [...pessoas].sort((a, b) => {
+    if (a.nome < b.nome) {
+        return -1;
+    } else if (a.nome > b.nome) {
+        return 1;
+    } else {
+        return 0;
+    }
+});
 
 
 
 
-//3) criar uma array somente com alunas que passaram de ano (media >5)
+//3) retornar uma nova array somente com alunas que passaram de ano (media >5)
 
 const notasAlunas = [{
         nome: "Julia",
@@ -132,25 +160,47 @@ const notasAlunas = [{
     }
 ]
 
+//antes precisa calcular a media ponderada:
+
+const notasFinaisAlunas = notasAlunas.map(
+    (aluna) => {
+        console.log(aluna.notas); // aqui estamos usando o .notas para acessar o array na nossa funcao de callback
+        // nosso input é um array
+        // nosso output precisa ser um número
+        // portanto nesse caso não cabe map, tampouco filter
+        // pra calcular essa media ponderada, precisamos criar um loop dentro do array notas
+        let somaNotas = 0;
+        let somaPesos = 0;
+
+        for (let i = 0; i < aluna.notas.length; i++) {
+            const nota = arrNotas[i].nota;
+            const peso = arrNotas[i].peso;
+            const notaFinalMateria = nota * peso;
+            somaNotas += notaFinalMateria;
+            somaPesos += peso;
+        } // essa merda toda pra conseguir fazer o cacete da média ponderada
+
+        const notaFinal = somaNotas / somaPesos;
+
+        const novaAluna = {
+                nome: aluna.nome,
+                notaFinal: notaFinal
+            } // aqui estamos criando a buceta do objeto que vai receber o nome da corna da aluna
+
+        return novaAluna;
+    }
+)
+
+//aqui tinha um modelo a ser seguido pra bosta do objeto que dizia que era pra devolver um objeto exatamente assim com esse notaFinal ridículo porque as propriedades do objeto se nao forem em camelCase tem que ser como como string porra 
+
 const alunasPassantes = notasFinaisAlunas.filter(
     (item) => { //aluna aqui esta no lugar do item
-        const media = 5;
-        const passou = item.notaFinal >= media;
-        return passou;
+        const media = 5; // isso aqui existe só pra vc ter a porra do valor com que comparar a média
+        const passou = item.notaFinal >= media; // só vai aparecer no array de retorno se o valor do item notaFinal for maior ou igual a media, que nada mais é que 5 infernooo
+        return passou; // precisa de return senao nao retorna merda nenhuma
     }
 );
 
-console.log(alunasPassantes);
+console.log(alunasPassantes); // pra aparecer a desgraça da const que acabamos de definir aqui em cima
 
 const numDecrescente = [...num].sort((a, b) => b - a);
-
-// 2) Organizar pessoas por ordem alfabética
-const pessoasAlfabetico = [...pessoas].sort((a, b) => {
-    if (a.nome < b.nome) {
-        return -1;
-    } else if (a.nome > b.nome) {
-        return 1;
-    } else {
-        return 0;
-    }
-});
