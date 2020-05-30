@@ -26,7 +26,7 @@ const profissionaisMelhores = profissionais.map(profissional => {
 })
 
 const profissionaisMelhores = profissionais.map(profissional => {
-  return profissional + "a";
+    return profissional + "a";
 })
 
 // 2) Retornar frutas com somente a primeira letra maiúscula
