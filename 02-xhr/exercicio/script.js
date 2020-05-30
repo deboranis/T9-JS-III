@@ -4,6 +4,7 @@
 // A imagem deve ser ter essa URL https://pokeres.bastionbot.org/images/pokemon/${id_do_pokemon}.png
 // Essa id é retirada da API anterior
 
+<<<<<<< HEAD
 // const form = document.getElementById('pkmForm');
 // const input = document.getElementById('pkmInput');
 // const pkmPlaceholder = document.getElementById('pkmPlaceholder');
@@ -34,6 +35,11 @@
 
 //
 //TRANSFORMAR EM FETCH
+=======
+
+// TRANSFORMAR A REQUISIÇÃO XMLHTTREQUEST EM FETCH
+// 14h30
+>>>>>>> 997cb2a56e68ad810efb551bd54b16b4978e7148
 
 const form = document.getElementById('pkmForm');
 const input = document.getElementById('pkmInput');
@@ -54,6 +60,32 @@ const chamarRequisicao = (e) => { // aqui estamos chamando uma requisicao
             console.log('dado', dado)
         })
 
+<<<<<<< HEAD
+=======
+const chamarRequisicao = (e) => {
+  e.preventDefault();
+  pkmPlaceholder.innerHTML = "";
+  const pkmNome = input.value.toLowerCase();
+  const request = new XMLHttpRequest();
+  
+  request.open("GET", `https://pokeapi.co/api/v2/pokemon/${pkmNome}/`, true);
+
+  request.addEventListener("readystatechange", function () {
+    console.log('request', request)
+    if (request.readyState == 4 && request.status == 200) {
+      const data = JSON.parse(request.response);
+      const p = document.createElement('p');
+      const img = document.createElement('img');
+
+      p.textContent = data.species.name;
+      img.setAttribute('src', `https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`)
+
+      pkmPlaceholder.appendChild(p).appendChild(img);
+    }
+  })
+  
+  request.send();
+>>>>>>> 997cb2a56e68ad810efb551bd54b16b4978e7148
 }
 
 form.addEventListener('submit', (e) => chamarRequisicao(e));
