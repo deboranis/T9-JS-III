@@ -5,7 +5,6 @@ const bairroInput = document.getElementById("bairro")
 const localidadeInput = document.getElementById("localidade")
 const ufInput = document.getElementById("uf")
 
-<<<<<<< HEAD
 
 cepInput.addEventListener("blur", () => { // blur é o oposto de focus, vai ativar quando a pessoa tira o mouse do campo
     fetch(`https://viacep.com.br/ws/${cepInput.value}/json/`)
@@ -19,9 +18,8 @@ cepInput.addEventListener("blur", () => { // blur é o oposto de focus, vai ativ
         })
 
 });
-=======
-cepInput.addEventListener("blur", ()=>{
-    if(cepInput.value){
+cepInput.addEventListener("blur", () => {
+    if (cepInput.value) {
         fetch(`https://viacep.com.br/ws/${cepInput.value}/json`).then(response => {
             return response.json()
         }).then(json => {
@@ -39,4 +37,3 @@ preencheInputs = objeto => {
     localidadeInput.value = objeto.localidade
     ufInput.value = objeto.uf
 }
->>>>>>> 2bf832b47c82bbcac0d263e0f309f6cdea7adf11
